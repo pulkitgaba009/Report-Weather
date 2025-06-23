@@ -7,8 +7,8 @@ function SearchBox({ updateInfo }) {
   let [city, setCity] = useState("India");
   let [error, setError] = useState("");
 
-  let API_URL = "http://api.weatherapi.com/v1/current.json";
-  const API_Key = "9b361a8af8d14b79aaf110958252306";
+  let API_URL = import.meta.env.VITE_API_Link;
+  const API_Key = import.meta.env.VITE_API_KEY;
 
   async function getWeatherInfo() {
     try {
