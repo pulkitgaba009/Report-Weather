@@ -4,20 +4,40 @@ import "./SearchBox.css";
 import { useState } from "react";
 
 function SearchBox() {
-  let [city, setCity] = useState("Delhi");
+  let [city, setCity] = useState("India");
+  
+  let API_URL = "http://api.weatherapi.com/v1/current.json"
+  const API_Key = "9b361a8af8d14b79aaf110958252306";
+
+  async function getWeatherInfo() {
+    let res = await fetch(`${API_URL}?key=${API_Key}&q=${city}`)
+    let jsonResponse = await res.json()
+    console.log(jsonResponse)
+
+    let result={
+        condition: jsonResponse.current.condition.text,
+        temprature: jsonResponse.current.temp_c,
+        feelsLike: jsonResponse.current.feelslike_c,
+        humidity: jsonResponse.current.humidity,
+        updated: jsonResponse.current.last_updated,
+        country: jsonResponse.location.country
+    }
+    console.log(result)
+  }
 
   function handleInput(event) {
     let value = event.target.value;
     setCity(value);
   }
 
-  function handleForm(event){
+  function handleForm(event) {
     event.preventDefault();
-    console.log(city)
+    console.log(city);
+    getWeatherInfo()
   }
 
-  function empty(){
-    setCity("")
+  function empty() {
+    setCity("");
   }
 
   return (
