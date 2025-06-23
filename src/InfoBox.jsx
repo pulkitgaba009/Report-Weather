@@ -3,16 +3,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 
-function InfoBox() {
-  let info = {
-    cityInfo: "Delhi",
-    condition: "Partialy Cloudy",
-    temprature: 37.6,
-    feelsLike: 42.9,
-    humidity: 39,
-    updated: "2025-06-23 18:15",
-    country: "India",
-  };
+function InfoBox({info}) {
 
   return (
     <>
@@ -25,11 +16,11 @@ function InfoBox() {
             title="green iguana"
           />
           <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              {info.cityInfo}
+            <Typography sx={{textAlign:"center"}} gutterBottom variant="h5" component="div">
+              {info.cityInput}
             </Typography>
-            <Typography variant="body2" sx={{ color: "text.secondary" }}>
-              <div>
+            <Typography variant="body2" component="div" sx={{ color: "text.secondary" }}>
+              <div style={{justifyItems:"center"}}>
                 <p>Country : {info.country}</p>
                 <p>Temprature : {info.temprature}°C</p>
                 <p>Condition : {info.condition}</p>

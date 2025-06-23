@@ -3,27 +3,34 @@ import Button from "@mui/material/Button";
 import "./SearchBox.css";
 import { useState } from "react";
 
-function SearchBox() {
+function SearchBox({ updateInfo }) {
   let [city, setCity] = useState("India");
-  
-  let API_URL = "http://api.weatherapi.com/v1/current.json"
+  let [error, setError] = useState("");
+
+  let API_URL = "http://api.weatherapi.com/v1/current.json";
   const API_Key = "9b361a8af8d14b79aaf110958252306";
 
   async function getWeatherInfo() {
-    let res = await fetch(`${API_URL}?key=${API_Key}&q=${city}`)
-    let jsonResponse = await res.json()
-    console.log(jsonResponse)
+    try {
+      setError("");
+      let res = await fetch(`${API_URL}?key=${API_Key}&q=${city}`);
+      let jsonResponse = await res.json();
 
-    let result={
-        cityInput : city,
+      let result = {
+        cityInput: jsonResponse.location.name,
         condition: jsonResponse.current.condition.text,
         temprature: jsonResponse.current.temp_c,
         feelsLike: jsonResponse.current.feelslike_c,
         humidity: jsonResponse.current.humidity,
         updated: jsonResponse.current.last_updated,
-        country: jsonResponse.location.country
+        country: jsonResponse.location.country,
+      };
+      console.log(result);
+      updateInfo(result);
+    } catch (err) {
+      console.error("Error fetching weather info:", err.message);
+      setError("City not found or API error. Please try again.");
     }
-    console.log(result)
   }
 
   function handleInput(event) {
@@ -34,7 +41,7 @@ function SearchBox() {
   function handleForm(event) {
     event.preventDefault();
     console.log(city);
-    getWeatherInfo()
+    getWeatherInfo();
   }
 
   function empty() {
@@ -63,6 +70,12 @@ function SearchBox() {
             Get weather
           </Button>
         </form>
+
+        {error && (
+          <p style={{ color: "red", marginTop: "1rem", fontWeight: "bold" }}>
+            {error}
+          </p>
+        )}
       </div>
     </>
   );
