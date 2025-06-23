@@ -15,6 +15,7 @@ function SearchBox() {
     console.log(jsonResponse)
 
     let result={
+        cityInput : city,
         condition: jsonResponse.current.condition.text,
         temprature: jsonResponse.current.temp_c,
         feelsLike: jsonResponse.current.feelslike_c,
