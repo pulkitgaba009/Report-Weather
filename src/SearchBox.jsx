@@ -8,7 +8,7 @@ function SearchBox({ updateInfo }) {
   let [error, setError] = useState("");
 
   let API_URL = import.meta.env.VITE_API_Link;
-  const API_Key = import.meta.env.VITE_API_KEY;
+  let API_Key = import.meta.env.VITE_API_KEY;
 
   async function getWeatherInfo() {
     try {
